@@ -17,8 +17,7 @@ def index(request):
     # The 'all()' is implied by default.
     num_authors = Author.objects.count()
 
-    num_genres = Genre.objects.count()
-
+    num_genres = Genre.objects.filter(name__icontains="LitRPG").count()
     num_books_with_pizza = Book.objects.filter(title__icontains="pizza").count()
 
     context = {
