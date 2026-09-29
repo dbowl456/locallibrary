@@ -1,5 +1,9 @@
 import pathlib
 
+from django.urls import path
+
+from . import views
+
 # I solemnly swear I'm not pasting this where I pasted the several preceding pastes!
 # this is in locallibrary/catalog/urls.py which I *just* created
 # the current file is definitely NOT locallibrary/locallibrary_config/urls.py!
@@ -11,9 +15,7 @@ assert (_this_dir / "models.py").exists(), (
     "catalog/urls.py should have a sibling named models.py"
 )
 
-from django.urls import path
-from . import views
-
 urlpatterns = [
     path("", views.index, name="index"),
+    path("books/", views.BookListView.as_view(), name="books"),
 ]
