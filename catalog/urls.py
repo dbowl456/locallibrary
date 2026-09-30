@@ -4,8 +4,6 @@ from django.urls import path
 
 from . import views
 
-app_name = "catalog"
-
 # I solemnly swear I'm not pasting this where I pasted the several preceding pastes!
 # this is in locallibrary/catalog/urls.py which I *just* created
 # the current file is definitely NOT locallibrary/locallibrary_config/urls.py!
