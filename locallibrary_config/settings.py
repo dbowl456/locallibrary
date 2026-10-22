@@ -82,7 +82,16 @@ WSGI_APPLICATION = "locallibrary_config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")}
+# locallibrary_config/settings.py
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+        "TEST": {
+            "NAME": BASE_DIR / "test_db.sqlite3",
+        },
+    }
+}
 
 
 # Password validation
@@ -132,12 +141,19 @@ MAILERS = {
     },
 }
 
+# locallibrary_config/settings.py
+# Channels
 ASGI_APPLICATION = "locallibrary_config.asgi.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [
+                {
+                    "address": env("REDIS_URL"),
+                    "socket_timeout": env.int("REDIS_SOCKET_TIMEOUT"),
+                }
+            ],
         },
     },
 }
