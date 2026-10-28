@@ -5,9 +5,13 @@
 <ul>
     {% for bookinst in bookinstance_list %}
     <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
-        <a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a>
-        ({{ bookinst.due_back }}) - {{ bookinst.borrower.username|default:"(no borrower)" }} {% if
-        perms.catalog.can_mark_returned %}- <a href="{% url 'renew-book-librarian' bookinst.id %}">Renew</a>{% endif %}
+        <div>
+            <a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a>
+            ({{ bookinst.due_back }}) - {{ bookinst.borrower.username|default:"(no borrower)" }}
+        </div>
+        {% if perms.catalog.can_mark_returned %}
+        <div><a href="{% url 'renew-book-librarian' bookinst.id %}">Renew</a></div>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>
