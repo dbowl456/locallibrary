@@ -28,7 +28,6 @@
 
                         {% if user.is_authenticated %}
                         <li>User: {{ user.get_username }}</li>
-
                         <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
                         <li>
                             <form id="logout-form" method="post" action="{% url 'account_logout' %}">
@@ -36,17 +35,16 @@
                                 <button type="submit" class="btn btn-link">Logout</button>
                             </form>
                         </li>
+
                         {% if perms.catalog.can_mark_returned %}
                         <li><hr /></li>
                         <li>Staff</li>
                         <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
-                        {% if perms.catalog.add_author %}
+                        {% endif %} {% if perms.catalog.add_author %}
                         <li><a href="{% url 'author-create' %}">Create author</a></li>
-                        {% if perms.catalog.add_book %}
+                        {% endif %} {% if perms.catalog.add_book %}
                         <li><a href="{% url 'book-create' %}">Create book</a></li>
-                        {% endif %} {% if user.is_staff %}
-                        <hr />
-                        {% endif %} {% endif %} {% else %}
+                        {% endif %} {% else %}
                         <li><a href="{% url 'account_login' %}?next={{ request.path }}">Login</a></li>
                         <li><a href="{% url 'account_signup' %}">Sign up</a></li>
                         {% endif %}
