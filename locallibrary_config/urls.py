@@ -26,6 +26,11 @@ from django.urls import include, path
 # Add URL maps to redirect the base URL to our application
 from django.views.generic import RedirectView
 
+# locallibrary_config/urls.py
+# (after the existing blocks)
+# Mount the Django Ninja API
+from .api import api
+
 urlpatterns = [
     path("admin/", admin.site.urls),
 ]
@@ -45,3 +50,7 @@ urlpatterns += [
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns += [
+    path("api/", api.urls),
+]
