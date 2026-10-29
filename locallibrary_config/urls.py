@@ -26,6 +26,9 @@ from django.urls import include, path
 # Add URL maps to redirect the base URL to our application
 from django.views.generic import RedirectView
 
+from taskflow.api import api as taskflow_api
+from taskflow.api import api_v2 as taskflow_api_v2
+
 # locallibrary_config/urls.py
 # (after the existing blocks)
 # Mount the Django Ninja API
@@ -50,7 +53,13 @@ urlpatterns += [
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     path("api/", api.urls),
+]
+
+urlpatterns += [
+    path("taskflow/api/v2/", taskflow_api_v2.urls),
+    path("taskflow/api/", taskflow_api.urls),
 ]
